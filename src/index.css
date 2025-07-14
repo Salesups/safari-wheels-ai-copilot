@@ -2,6 +2,143 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    /* Kenya-inspired color palette */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    
+    /* Primary colors inspired by Kenyan flag and sunset */
+    --primary: 12 88% 59%; /* Warm orange-red */
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 25 95% 65%; /* Lighter sunset orange */
+    
+    /* Secondary colors - earthy tones */
+    --secondary: 210 40% 98%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    
+    /* Muted colors - safari beige */
+    --muted: 36 33% 95%; /* Warm beige */
+    --muted-foreground: 25 5% 45%;
+    
+    /* Accent - vibrant green from flag */
+    --accent: 142 76% 36%; /* Deep forest green */
+    --accent-foreground: 0 0% 98%;
+    
+    /* Status colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 48 96% 53%;
+    --warning-foreground: 25 5% 5%;
+    
+    /* Border and input */
+    --border: 36 33% 88%;
+    --input: 36 33% 88%;
+    --ring: 12 88% 59%;
+    
+    /* Gradients */
+    --gradient-sunset: linear-gradient(135deg, hsl(12, 88%, 59%), hsl(25, 95%, 65%));
+    --gradient-forest: linear-gradient(135deg, hsl(142, 76%, 36%), hsl(120, 60%, 50%));
+    --gradient-sky: linear-gradient(180deg, hsl(200, 100%, 85%), hsl(220, 100%, 95%));
+    
+    /* Shadows with warm tones */
+    --shadow-warm: 0 4px 12px -2px hsl(12, 88%, 59%, 0.15);
+    --shadow-subtle: 0 2px 8px -2px hsl(25, 5%, 45%, 0.1);
+    
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 0 0% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 25 95% 65%;
+    --primary-foreground: 25 5% 5%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 142 76% 45%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 25 95% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Safari-themed animations */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  /* Custom utility classes */
+  .bg-gradient-sunset {
+    background: var(--gradient-sunset);
+  }
+  
+  .bg-gradient-forest {
+    background: var(--gradient-forest);
+  }
+  
+  .shadow-warm {
+    box-shadow: var(--shadow-warm);
+  }
+  
+  .shadow-subtle {
+    box-shadow: var(--shadow-subtle);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
