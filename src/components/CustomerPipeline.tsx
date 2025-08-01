@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useToast } from "@/hooks/use-toast";
 import {
   Users,
   Phone,
@@ -18,6 +19,32 @@ import {
 
 export const CustomerPipeline = () => {
   const [activeStage, setActiveStage] = useState("all");
+  const { toast } = useToast();
+
+  const handleCall = (customer: any) => {
+    toast({
+      title: "Calling Customer",
+      description: `Initiating call to ${customer.name} at ${customer.phone}`,
+    });
+    // In production: integrate with phone system or open dialer
+  };
+
+  const handleWhatsApp = (customer: any) => {
+    toast({
+      title: "WhatsApp Message",
+      description: `Opening WhatsApp chat with ${customer.name}`,
+    });
+    // In production: open WhatsApp with pre-filled message
+    // window.open(`https://wa.me/${customer.phone.replace('+', '')}?text=Hello ${customer.name}...`);
+  };
+
+  const handleUpdate = (customer: any) => {
+    toast({
+      title: "Update Customer",
+      description: `Customer record update form will open soon`,
+    });
+    // In production: open customer update modal/form
+  };
 
   // Customer pipeline data with Kenyan context
   const customers = [
@@ -281,15 +308,29 @@ export const CustomerPipeline = () => {
 
                 {/* Action buttons */}
                 <div className="flex gap-2">
-                  <Button size="sm" variant="outline" className="flex-1">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="flex-1"
+                    onClick={() => handleCall(customer)}
+                  >
                     <Phone className="w-3 h-3 mr-1" />
                     Call
                   </Button>
-                  <Button size="sm" variant="outline" className="flex-1">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="flex-1"
+                    onClick={() => handleWhatsApp(customer)}
+                  >
                     <MessageSquare className="w-3 h-3 mr-1" />
                     WhatsApp
                   </Button>
-                  <Button size="sm" variant="default">
+                  <Button 
+                    size="sm" 
+                    variant="default"
+                    onClick={() => handleUpdate(customer)}
+                  >
                     Update
                   </Button>
                 </div>
