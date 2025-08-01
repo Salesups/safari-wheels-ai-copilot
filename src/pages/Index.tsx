@@ -37,7 +37,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div>
       {/* Mobile-first header with key metrics */}
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b">
         <div className="container mx-auto px-4 py-3">
@@ -78,8 +78,8 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Main content */}
-      <div className="container mx-auto px-4 py-4 space-y-4">
+        {/* Main content */}
+        <div className="space-y-4">
         {/* AI Insights - Always visible for COO-level intelligence */}
         <AIInsights />
 
