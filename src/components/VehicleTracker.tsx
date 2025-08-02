@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import {
   Car,
   Ship,
@@ -19,6 +21,31 @@ import {
 export const VehicleTracker = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleVehicleDetails = (vehicle: any) => {
+    toast({
+      title: "Vehicle Details",
+      description: `Viewing details for ${vehicle.year} ${vehicle.make} ${vehicle.model}`,
+    });
+    // Navigate to vehicle details page or open modal
+    navigate(`/vehicle/${vehicle.id}`);
+  };
+
+  const handleActNow = (vehicle: any) => {
+    if (vehicle.urgentFlags.includes("age_limit_near")) {
+      navigate('/docs');
+    } else if (vehicle.urgentFlags.includes("customs_delay")) {
+      navigate('/follow-up');
+    } else {
+      navigate('/metrics');
+    }
+  };
+
+  const handleContact = (vehicle: any) => {
+    navigate(`/?tab=customers&customer=${vehicle.customer}`);
+  };
 
   // Mock vehicle data - structured around the journey from port to sale
   const vehicles = [
@@ -225,18 +252,31 @@ export const VehicleTracker = () => {
 
                 {/* Action buttons */}
                 <div className="flex gap-2 mt-3 pt-3 border-t">
-                  <Button size="sm" variant="outline" className="flex-1">
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="flex-1"
+                    onClick={() => handleVehicleDetails(vehicle)}
+                  >
                     <Eye className="w-3 h-3 mr-1" />
                     Details
                   </Button>
                   {vehicle.customer && (
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => handleContact(vehicle)}
+                    >
                       <MessageSquare className="w-3 h-3 mr-1" />
                       Contact
                     </Button>
                   )}
                   {vehicle.urgentFlags.length > 0 && (
-                    <Button size="sm" variant="destructive">
+                    <Button 
+                      size="sm" 
+                      variant="destructive"
+                      onClick={() => handleActNow(vehicle)}
+                    >
                       Act Now
                     </Button>
                   )}

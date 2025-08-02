@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useNavigate, useLocation } from "react-router-dom";
 import { 
   Car, 
   AlertTriangle, 
@@ -24,6 +25,17 @@ import { CustomerPipeline } from "@/components/CustomerPipeline";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("overview");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle URL parameters for tab switching
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const tab = urlParams.get('tab');
+    if (tab && ['vehicles', 'compliance', 'customers'].includes(tab)) {
+      setActiveTab(tab);
+    }
+  }, [location.search]);
 
   // Mock data - in real app this would come from backend
   const dealerStats = {
@@ -49,7 +61,11 @@ const Index = () => {
                   {dealerStats.urgentAlerts} urgent
                 </Badge>
               )}
-              <Button size="sm" variant="outline">
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => navigate('/whatsapp')}
+              >
                 <MessageSquare className="w-4 h-4 mr-1" />
                 WhatsApp
               </Button>
@@ -118,7 +134,10 @@ const Index = () => {
 };
 
 // Overview tab component
-const OverviewTab = ({ stats }: { stats: any }) => (
+const OverviewTab = ({ stats }: { stats: any }) => {
+  const navigate = useNavigate();
+
+  return (
   <div className="space-y-4">
     {/* Critical alerts first */}
     <Card className="border-red-200 bg-red-50/50">
@@ -134,14 +153,24 @@ const OverviewTab = ({ stats }: { stats: any }) => (
             <div className="font-medium text-sm">Vehicle age limit expiring</div>
             <div className="text-xs text-muted-foreground">Toyota Prado 2016 - 3 days left</div>
           </div>
-          <Button size="sm" variant="destructive">Act Now</Button>
+          <Button 
+            size="sm" 
+            variant="destructive"
+            onClick={() => navigate('/docs')}
+          >
+            Act Now
+          </Button>
         </div>
         <div className="flex items-center justify-between p-2 bg-white rounded border-l-4 border-orange-500">
           <div>
             <div className="font-medium text-sm">Customer financing expires</div>
             <div className="text-xs text-muted-foreground">John Kipchoge - Follow up today</div>
           </div>
-          <Button size="sm" variant="outline">
+          <Button 
+            size="sm" 
+            variant="outline"
+            onClick={() => navigate('/follow-up')}
+          >
             <Phone className="w-3 h-3 mr-1" />
             Call
           </Button>
@@ -204,5 +233,6 @@ const OverviewTab = ({ stats }: { stats: any }) => (
     </Card>
   </div>
 );
+};
 
 export default Index;

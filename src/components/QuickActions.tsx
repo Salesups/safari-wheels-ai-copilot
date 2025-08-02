@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import {
   MessageSquare,
   Phone,
@@ -14,54 +15,44 @@ import {
 
 export const QuickActions = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleWhatsAppLeads = () => {
-    // Simulate WhatsApp Business API integration
-    toast({
-      title: "WhatsApp Integration",
-      description: "Opening WhatsApp Business to manage 5 pending leads...",
-    });
-    // In production: window.open('https://business.whatsapp.com/...')
+    navigate('/whatsapp');
   };
 
   const handleCallFollowups = () => {
-    toast({
-      title: "Call Follow-ups",
-      description: "3 customers need immediate follow-up calls.",
-    });
-    // In production: Open call management system or dial automatically
+    navigate('/follow-up');
   };
 
   const handleDocsNeeded = () => {
-    toast({
-      title: "Document Review",
-      description: "7 vehicles have missing or pending documentation.",
-    });
-    // In production: Navigate to document management system
+    navigate('/docs');
   };
 
   const handleAddVehicle = () => {
-    toast({
-      title: "Add Vehicle",
-      description: "Vehicle addition form will be available soon.",
-    });
-    // In production: Open vehicle addition modal/form
+    navigate('/addvehicle');
   };
 
   const handleFinancing = () => {
-    toast({
-      title: "Financing Dashboard",
-      description: "4 financing applications need attention.",
-    });
-    // In production: Open financing management system
+    // Navigate to customers tab with financing filter
+    navigate('/?tab=customers&filter=financing');
   };
 
   const handleNewCustomer = () => {
-    toast({
-      title: "New Customer",
-      description: "Customer registration form will be available soon.",
-    });
-    // In production: Open customer registration modal/form
+    // Navigate to customers tab with action to add new customer
+    navigate('/?tab=customers&action=new');
+  };
+
+  const handleCheckInventory = () => {
+    navigate('/?tab=vehicles');
+  };
+
+  const handleReviewOrder = () => {
+    navigate('/metrics');
+  };
+
+  const handlePreSellUnits = () => {
+    navigate('/?tab=customers');
   };
 
   const actions = [

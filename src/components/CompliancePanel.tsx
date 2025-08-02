@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 import {
   FileText,
   AlertTriangle,
@@ -17,6 +19,22 @@ import {
 
 export const CompliancePanel = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleDocsAction = (task: any) => {
+    navigate('/docs');
+  };
+
+  const handleUrgentAction = (task: any) => {
+    if (task.type === 'age_limit') {
+      navigate('/follow-up');
+    } else if (task.type === 'customs') {
+      navigate('/docs');
+    } else {
+      navigate('/metrics');
+    }
+  };
 
   // Compliance tasks with Kenya-specific requirements
   const complianceTasks = [
@@ -238,13 +256,18 @@ export const CompliancePanel = () => {
                   </div>
                   
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline">
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => handleDocsAction(task)}
+                    >
                       <ExternalLink className="w-3 h-3 mr-1" />
                       Docs
                     </Button>
                     <Button 
                       size="sm" 
                       variant={task.status === "critical" ? "destructive" : "default"}
+                      onClick={() => handleUrgentAction(task)}
                     >
                       {task.status === "critical" ? "Urgent Action" : "Update"}
                     </Button>
