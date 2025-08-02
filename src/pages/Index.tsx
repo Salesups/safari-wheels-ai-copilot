@@ -54,7 +54,7 @@ const Index = () => {
       <div className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between mb-3">
-            <h1 className="text-xl font-bold">Safari Wheels AI</h1>
+            <h1 className="text-lg sm:text-xl font-bold truncate">Safari Wheels AI</h1>
             <div className="flex items-center gap-2">
               {dealerStats.urgentAlerts > 0 && (
                 <Badge variant="destructive" className="animate-pulse">
@@ -137,6 +137,18 @@ const Index = () => {
 const OverviewTab = ({ stats }: { stats: any }) => {
   const navigate = useNavigate();
 
+  const handleCheckInventory = () => {
+    navigate('/?tab=vehicles');
+  };
+
+  const handleReviewOrder = () => {
+    navigate('/metrics');
+  };
+
+  const handlePreSellUnits = () => {
+    navigate('/?tab=customers');
+  };
+
   return (
   <div className="space-y-4">
     {/* Critical alerts first */}
@@ -200,6 +212,32 @@ const OverviewTab = ({ stats }: { stats: any }) => {
             <span>Financing approvals pending</span>
             <span className="font-medium">KSh 1.6M</span>
           </div>
+        </div>
+        <div className="grid grid-cols-3 gap-2 mt-4">
+          <Button 
+            size="sm" 
+            variant="outline"
+            onClick={handleCheckInventory}
+            className="text-xs"
+          >
+            Check Inventory
+          </Button>
+          <Button 
+            size="sm" 
+            variant="outline"
+            onClick={handleReviewOrder}
+            className="text-xs"
+          >
+            Review Orders
+          </Button>
+          <Button 
+            size="sm" 
+            variant="outline"
+            onClick={handlePreSellUnits}
+            className="text-xs"
+          >
+            Pre-sell Units
+          </Button>
         </div>
       </CardContent>
     </Card>
