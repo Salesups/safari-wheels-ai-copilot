@@ -94,8 +94,8 @@ const Index = () => {
         </div>
       </div>
 
-        {/* Main content */}
-        <div className="space-y-4">
+      {/* Main content */}
+      <div className="container mx-auto px-4 space-y-4">
         {/* AI Insights - Always visible for COO-level intelligence */}
         <AIInsights />
 
